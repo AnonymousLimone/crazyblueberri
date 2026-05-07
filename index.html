@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>crazyblueberri</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>🫐</text></svg>">
+</head>
+<body>
+  <canvas id="pixel-rain"></canvas>
+
+  <nav id="navbar">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">🫐 crazyblueberri</a>
+      <div class="nav-links">
+        <a href="#about">about</a>
+        <a href="#publications">publications</a>
+        <a href="#teaching">teaching</a>
+        <a href="#cv">cv</a>
+      </div>
+      <button class="nav-toggle" aria-label="menu">☰</button>
+    </div>
+  </nav>
+
+  <main>
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-content">
+        <div class="pixel-avatar">
+          <div class="avatar-placeholder">
+            <span>:)</span>
+          </div>
+        </div>
+        <h1 class="glitch-text">crazyblueberri</h1>
+        <p class="subtitle">behavioral scientist · communication neuroscience · political psychology · social neuroscience</p>
+        <div class="hero-decoration">
+          <span class="pixel-star">✦</span>
+          <span class="pixel-star">✦</span>
+          <span class="pixel-star">✦</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="container">
+        <h2 class="section-title"><span class="pixel-bracket">[</span> about <span class="pixel-bracket">]</span></h2>
+        <div class="about-content">
+          <div class="about-text">
+            <p>
+              Hello — I'm a behavioral scientist working at the intersection of
+              <span class="highlight">communication neuroscience</span>,
+              <span class="highlight">political psychology</span>, and
+              <span class="highlight">social neuroscience</span>.
+            </p>
+            <p>
+              My research explores how people process and respond to persuasive messages,
+              how neural and psychological mechanisms shape political attitudes,
+              and how social context influences brain function and behavior.
+            </p>
+            <p>
+              I use neuroimaging (fMRI), behavioral experiments, and computational methods
+              to understand the cognitive and neural underpinnings of communication and social influence.
+            </p>
+            <div class="about-links">
+              <a href="mailto:your@email.com" class="pixel-btn">✉ email</a>
+              <a href="https://scholar.google.com/" class="pixel-btn" target="_blank">📚 google scholar</a>
+              <a href="https://github.com/AnonymousLimone" class="pixel-btn" target="_blank">⌨ github</a>
+            </div>
+          </div>
+          <div class="about-decoration">
+            <div class="pixel-frame">
+              <div class="brain-pixel-art">
+                <pre>
+    ╭─────────╮
+   ╱ ·  ·  ·  ╲
+  │  ◠  ◡  ◠   │
+  │   ·  ·  ·  │
+   ╲  ◡  ◠  ◡ ╱
+    ╰─────────╯
+      │ │ │
+                </pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PUBLICATIONS -->
+    <section id="publications">
+      <div class="container">
+        <h2 class="section-title"><span class="pixel-bracket">[</span> publications <span class="pixel-bracket">]</span></h2>
+
+        <div class="pub-tabs">
+          <button class="pub-tab active" data-tab="journal">journal articles</button>
+          <button class="pub-tab" data-tab="conference">conference papers</button>
+        </div>
+
+        <div class="pub-panel active" id="tab-journal">
+          <div class="pub-year-group">
+            <h3 class="pub-year">2025</h3>
+            <ul class="pub-list">
+              <li class="pub-item">
+                <span class="pub-authors">Author, A., Author, B., & <strong>Your Name</strong>.</span>
+                <span class="pub-title">Example paper title about neural mechanisms of persuasion.</span>
+                <span class="pub-venue"><em>Journal of Communication</em>, 75(1), 1–20.</span>
+                <span class="pub-links">
+                  <a href="#" class="pub-link">[pdf]</a>
+                  <a href="#" class="pub-link">[doi]</a>
+                </span>
+              </li>
+            </ul>
+          </div>
+          <div class="pub-year-group">
+            <h3 class="pub-year">2024</h3>
+            <ul class="pub-list">
+              <li class="pub-item">
+                <span class="pub-authors"><strong>Your Name</strong> & Author, C.</span>
+                <span class="pub-title">Another example about political attitudes and brain connectivity.</span>
+                <span class="pub-venue"><em>Political Psychology</em>, 45(3), 401–425.</span>
+                <span class="pub-links">
+                  <a href="#" class="pub-link">[pdf]</a>
+                  <a href="#" class="pub-link">[doi]</a>
+                </span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="pub-panel" id="tab-conference">
+          <div class="pub-year-group">
+            <h3 class="pub-year">2025</h3>
+            <ul class="pub-list">
+              <li class="pub-item">
+                <span class="pub-authors"><strong>Your Name</strong>, Author, D., & Author, E.</span>
+                <span class="pub-title">Conference presentation on social neuroscience methods.</span>
+                <span class="pub-venue">Annual Conference of the International Communication Association (ICA), Denver, CO.</span>
+              </li>
+            </ul>
+          </div>
+          <div class="pub-year-group">
+            <h3 class="pub-year">2024</h3>
+            <ul class="pub-list">
+              <li class="pub-item">
+                <span class="pub-authors"><strong>Your Name</strong> & Author, F.</span>
+                <span class="pub-title">Poster on neural responses to political messaging.</span>
+                <span class="pub-venue">Society for Neuroscience (SfN) Annual Meeting, Chicago, IL.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TEACHING -->
+    <section id="teaching">
+      <div class="container">
+        <h2 class="section-title"><span class="pixel-bracket">[</span> teaching <span class="pixel-bracket">]</span></h2>
+        <div class="teaching-grid">
+          <div class="course-card">
+            <div class="course-icon">📡</div>
+            <h3 class="course-title">Introduction to Communication Research</h3>
+            <p class="course-term">Spring 2025</p>
+            <p class="course-desc">Survey of research methods in communication science, including experimental design, survey methodology, and content analysis.</p>
+          </div>
+          <div class="course-card">
+            <div class="course-icon">🧠</div>
+            <h3 class="course-title">Communication Neuroscience</h3>
+            <p class="course-term">Fall 2024</p>
+            <p class="course-desc">Advanced seminar exploring neural mechanisms underlying message processing, persuasion, and media effects.</p>
+          </div>
+          <div class="course-card">
+            <div class="course-icon">🗳️</div>
+            <h3 class="course-title">Political Communication</h3>
+            <p class="course-term">Spring 2024</p>
+            <p class="course-desc">Examination of how political messages are crafted, disseminated, and processed by citizens in democratic societies.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CV -->
+    <section id="cv">
+      <div class="container">
+        <h2 class="section-title"><span class="pixel-bracket">[</span> cv <span class="pixel-bracket">]</span></h2>
+        <div class="cv-content">
+          <p>A full copy of my curriculum vitae is available below.</p>
+          <a href="cv.pdf" class="pixel-btn cv-download" target="_blank">⬇ download cv (pdf)</a>
+
+          <div class="cv-summary">
+            <div class="cv-block">
+              <h3>education</h3>
+              <div class="cv-entry">
+                <span class="cv-date">20XX –</span>
+                <span class="cv-detail">Ph.D. in Communication, University Name</span>
+              </div>
+              <div class="cv-entry">
+                <span class="cv-date">20XX</span>
+                <span class="cv-detail">M.A. in Communication, University Name</span>
+              </div>
+              <div class="cv-entry">
+                <span class="cv-date">20XX</span>
+                <span class="cv-detail">B.A. in Psychology, University Name</span>
+              </div>
+            </div>
+            <div class="cv-block">
+              <h3>methods</h3>
+              <div class="cv-tags">
+                <span class="cv-tag">fMRI</span>
+                <span class="cv-tag">EEG</span>
+                <span class="cv-tag">behavioral experiments</span>
+                <span class="cv-tag">survey design</span>
+                <span class="cv-tag">computational modeling</span>
+                <span class="cv-tag">NLP</span>
+                <span class="cv-tag">network analysis</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <span class="footer-pixel">✦</span>
+        <span>built with pixels & curiosity</span>
+        <span class="footer-pixel">✦</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
