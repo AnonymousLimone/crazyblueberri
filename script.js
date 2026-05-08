@@ -16,7 +16,7 @@
 
 // Profile photo — displayed as-is (original)
 
-// Seasonal pixel rain + butterfly
+// Seasonal pixel rain
 (function () {
   const canvas = document.getElementById('pixel-rain');
   const ctx = canvas.getContext('2d');
@@ -30,7 +30,7 @@
     : (month >= 8 && month <= 10) ? 'autumn' : 'winter';
 
   const palette = {
-    spring: ['255,183,197', '255,200,210', '255,160,180', '255,220,230'],
+    spring: ['255,150,175', '255,130,160', '240,120,150', '255,170,190'],
     summer: ['138,200,255', '90,173,255', '186,221,255'],
     autumn: ['255,180,100', '230,140,80', '200,120,60', '255,200,120'],
     winter: ['220,230,255', '200,215,240', '240,245,255'],
@@ -43,11 +43,14 @@
     return {
       x: Math.random() * w, y: Math.random() * h,
       size: season === 'winter' ? Math.random() * 2 + 2
-        : season === 'spring' ? Math.random() * 3 + 2
+        : season === 'spring' ? Math.random() * 4 + 3
         : Math.random() * 3 + 1,
-      speed: season === 'winter' ? Math.random() * 0.15 + 0.05 : Math.random() * 0.3 + 0.1,
-      opacity: Math.random() * 0.4 + 0.1,
-      drift: season === 'spring' ? (Math.random() - 0.5) * 0.5
+      speed: season === 'winter' ? Math.random() * 0.15 + 0.05
+        : season === 'spring' ? Math.random() * 0.25 + 0.08
+        : Math.random() * 0.3 + 0.1,
+      opacity: season === 'spring' ? Math.random() * 0.4 + 0.25
+        : Math.random() * 0.4 + 0.1,
+      drift: season === 'spring' ? (Math.random() - 0.5) * 0.6
         : season === 'autumn' ? (Math.random() - 0.3) * 0.4
         : (Math.random() - 0.5) * 0.2,
       col: cols[Math.floor(Math.random() * cols.length)],
@@ -58,45 +61,6 @@
 
   resize();
   for (let i = 0; i < COUNT; i++) particles.push(makeParticle());
-
-  // Butterfly
-  const bfly = {
-    active: false, x: 0, y: 0, startY: 0, dir: 1,
-    speed: 0, phase: 0, sine: 0,
-    lastSpawn: Date.now(),
-    interval: 20000 + Math.random() * 20000,
-  };
-  window.butterflyPos = { active: false, x: 0, y: 0 };
-
-  function spawnBfly() {
-    bfly.active = true;
-    bfly.dir = Math.random() > 0.5 ? 1 : -1;
-    bfly.x = bfly.dir === 1 ? -20 : w + 20;
-    bfly.startY = Math.random() * h * 0.5 + h * 0.15;
-    bfly.y = bfly.startY;
-    bfly.sine = 0; bfly.phase = 0;
-    bfly.speed = 0.5 + Math.random() * 0.4;
-  }
-
-  function drawBfly(x, y, wingUp) {
-    const s = 2;
-    const c1 = season === 'spring' ? '#f8a4c0' : season === 'autumn' ? '#ffa060' : season === 'winter' ? '#c0d8ff' : '#8ec8ff';
-    const c2 = season === 'spring' ? '#e878a0' : season === 'autumn' ? '#e08040' : season === 'winter' ? '#a0c0f0' : '#5aadff';
-    ctx.fillStyle = '#4a4a6a';
-    ctx.fillRect(x, y, s, s * 3);
-    ctx.fillStyle = c1;
-    if (wingUp) {
-      ctx.fillRect(x - s * 2, y - s, s * 2, s * 2);
-      ctx.fillRect(x + s, y - s, s * 2, s * 2);
-    } else {
-      ctx.fillRect(x - s * 2, y, s * 2, s * 2);
-      ctx.fillRect(x + s, y, s * 2, s * 2);
-    }
-    ctx.fillStyle = c2;
-    const wy = wingUp ? y + s : y + s * 2;
-    ctx.fillRect(x - s, wy, s, s);
-    ctx.fillRect(x + s, wy, s, s);
-  }
 
   function draw() {
     ctx.clearRect(0, 0, w, h);
@@ -118,26 +82,6 @@
       p.y += p.speed; p.x += p.drift;
       if (p.y > h + 4) { p.y = -4; p.x = Math.random() * w; }
     }
-
-    // Butterfly
-    const now = Date.now();
-    if (!bfly.active && now - bfly.lastSpawn > bfly.interval) {
-      spawnBfly(); bfly.lastSpawn = now;
-      bfly.interval = 20000 + Math.random() * 20000;
-    }
-    if (bfly.active) {
-      bfly.x += bfly.speed * bfly.dir;
-      bfly.sine += 0.025;
-      bfly.y = bfly.startY + Math.sin(bfly.sine) * 35;
-      bfly.phase += 0.12;
-      drawBfly(Math.round(bfly.x), Math.round(bfly.y), Math.sin(bfly.phase) > 0);
-      window.butterflyPos = { active: true, x: bfly.x, y: bfly.y };
-      if ((bfly.dir === 1 && bfly.x > w + 30) || (bfly.dir === -1 && bfly.x < -30)) {
-        bfly.active = false;
-        window.butterflyPos = { active: false, x: 0, y: 0 };
-      }
-    }
-
     requestAnimationFrame(draw);
   }
 
@@ -145,18 +89,36 @@
   draw();
 })();
 
-// Avatar face animation on load
+// Avatar icon cycle — click to switch: smiley → brain → speech bubble
 (function () {
   const face = document.querySelector('.avatar-placeholder span');
   if (!face) return;
+  const icons = [':)', '🧠', '💬'];
+  let idx = 0;
+
+  // entrance animation
   const expressions = [':/',':|',':)', ':D', ':)'];
-  let i = 0;
+  let ei = 0;
   face.textContent = expressions[0];
   const interval = setInterval(() => {
-    i++;
-    if (i >= expressions.length) { clearInterval(interval); return; }
-    face.textContent = expressions[i];
+    ei++;
+    if (ei >= expressions.length) { clearInterval(interval); return; }
+    face.textContent = expressions[ei];
   }, 400);
+
+  face.parentElement.addEventListener('click', () => {
+    idx = (idx + 1) % icons.length;
+    face.style.transition = 'transform 0.2s ease, opacity 0.2s ease';
+    face.style.transform = 'scale(0.5)';
+    face.style.opacity = '0';
+    setTimeout(() => {
+      face.textContent = icons[idx];
+      face.style.fontSize = idx === 0 ? '' : '32px';
+      face.style.transform = 'scale(1.2)';
+      face.style.opacity = '1';
+      setTimeout(() => { face.style.transform = 'scale(1)'; }, 150);
+    }, 200);
+  });
 })();
 
 // Name toggle — click to switch between English/Chinese
@@ -282,8 +244,9 @@ reveals.forEach(el => observer.observe(el));
   const S = 3;
   const CW = 72, CH = 96;
 
-  const BLACK = '#1a1a2e';
-  const DARK = '#2a2a3e';
+  const isNight = document.body.classList.contains('night-mode');
+  const BLACK = isNight ? '#4a4a60' : '#1a1a2e';
+  const DARK = isNight ? '#5a5a72' : '#2a2a3e';
   const EYE = '#8ec8ff';
   const NOSE = '#e8a0bf';
   const HEART = '#f28ba8';
@@ -466,30 +429,6 @@ reveals.forEach(el => observer.observe(el));
 
   function drawTrackingEyes(oy) {
     let ex=0, ey=0;
-
-    // Check if butterfly is close and visible
-    const bp = window.butterflyPos;
-    if (bp && bp.active) {
-      const rect = catEl.getBoundingClientRect();
-      const catCX = rect.left + rect.width / 2;
-      const catCY = rect.top + rect.height / 2;
-      const bdx = bp.x - catCX;
-      const bdy = bp.y - catCY;
-      const bdist = Math.sqrt(bdx * bdx + bdy * bdy);
-      if (bdist < 300) {
-        // Track butterfly instead of mouse
-        if (Math.abs(bdx) > 10) ex = bdx > 0 ? 1 : -1;
-        if (Math.abs(bdy) > 10) ey = bdy > 0 ? 1 : 0;
-        const lx=4+ex, rx=8+ex, ty=3+ey;
-        drawPixel(lx,ty+oy,EYE); drawPixel(lx+1,ty+oy,EYE);
-        drawPixel(lx,ty+1+oy,EYE); drawPixel(lx+1,ty+1+oy,EYE);
-        drawPixel(rx,ty+oy,EYE); drawPixel(rx+1,ty+oy,EYE);
-        drawPixel(rx,ty+1+oy,EYE); drawPixel(rx+1,ty+1+oy,EYE);
-        drawPixel(6,5+oy,NOSE); drawPixel(7,5+oy,NOSE);
-        return;
-      }
-    }
-
     if (Math.abs(mouseRelX)>10) ex = mouseRelX>0?1:-1;
     if (Math.abs(mouseRelY)>10) ey = mouseRelY>0?1:0;
     const lx=4+ex, rx=8+ex, ty=3+ey;
