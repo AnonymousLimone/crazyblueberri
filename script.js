@@ -486,7 +486,9 @@ reveals.forEach(el => observer.observe(el));
       p.x += p.vx;
       p.y += p.vy;
       p.life--;
-      const alpha = Math.max(0, p.life/p.maxLife);
+      const lifeAlpha = Math.max(0, p.life/p.maxLife);
+      const edgeFade = Math.min(1, Math.max(0, (p.y * S) / (6 * S)));
+      const alpha = lifeAlpha * edgeFade;
       if (p.type==='heart') {
         drawHeart(p.x, p.y, alpha);
       } else if (p.type==='yarn') {
