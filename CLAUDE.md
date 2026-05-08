@@ -34,7 +34,7 @@ Personal academic website for Xinyao Zhang. Hosted on GitHub Pages, auto-deploys
   - Avatar block: entrance animation (:/ → :| → :) → :D → :)), then clickable to cycle icons: :) → 🧠 (neuroscience) → 💬 (communication). Wiggles on hover.
   - Emojis (course icons, nav logo, footer stars) bounce on hover
   - Scroll-reveal animations on content sections
-  - **Seasonal pixel rain** — background particles change by month: spring (Mar–May) = deep pink cherry blossom petals (larger, more visible), summer (Jun–Aug) = blue pixels, autumn (Sep–Nov) = amber leaves, winter (Dec–Feb) = white snowflakes. Canvas opacity 0.5.
+  - **Seasonal pixel rain** — background particles change by month: spring (Mar–May) = soft pink cherry blossom petals, summer (Jun–Aug) = blue pixels, autumn (Sep–Nov) = amber leaves, winter (Dec–Feb) = white snowflakes. Canvas opacity 0.3.
   - **Konami code** (↑↑↓↓←→←→BA) — triggers a 5-second Game Boy green color palette swap. Cat wears a party hat and dances (bouncing animation + happy eyes + hearts). Footer has a subtle hint "psst... try the konami code".
   - **Logo blueberry bounce** — clicking the 🫐 nav logo drops a blueberry emoji that bounces with gravity physics, then fades out. Also scrolls to top.
   - **Day/night auto mode** — checks the hour on page load. Between 8pm and 7am, applies `.night-mode` class which overrides CSS variables to a dark navy palette. Cat uses lighter gray colors (#4a4a60) at night for visibility, and defaults to sleep state.
@@ -62,10 +62,12 @@ xinyaozhang/                    (local dir still named crazyblueberri)
 ## Page Sections (in order)
 
 1. **Hero** (`#hero`) — pixel avatar with animated face, "Xinyao Zhang" in pixel font (click to toggle Chinese name 张心瑶 in Noto Sans SC), subtitle with research keywords, twinkling stars, subtle hint "click my name for 中文"
-2. **About** (`#about`) — bio text, email + Bluesky links, profile photo on the right (visible on mobile too)
+2. **About** (`#about`) — bio text, email + Bluesky links, profile photo on the right (visible on mobile too). "behavioral and psychological level" and "neural level" are highlighted.
 3. **Publications** (`#publications`) — tabbed: Conferences / Workshops. Journal articles tab removed (all currently in review). Entries organized by year, Zhang X. bolded.
 4. **Teaching** (`#teaching`) — 3-column card grid: Communication Research 1 (📊), Persuasive Communication (📢), Graduation Project (🎓). Ordered newest first. Student evaluations shown.
 5. **CV** (`#cv`) — marked "under construction". Education timeline (PhD, Research MSc, double BA), skills tags, languages tags.
+   - Skills: fMRI, Experiment, R, LaTeX, Nilearn (Python), EEGLAB (MATLAB)
+   - Languages: Mandarin Chinese (Native), English (C1), Japanese (N1), Dutch (A2)
 6. **Footer** — "built with pixels & curiosity · powered by Claude Code" + Konami hint
 
 ## Current State
