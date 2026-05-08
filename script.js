@@ -8,30 +8,7 @@
   }, 800);
 })();
 
-// Pixelate profile photo via canvas
-(function () {
-  const img = document.querySelector('.photo-pixelated');
-  if (!img) return;
-  function pixelate() {
-    const w = img.naturalWidth;
-    const h = img.naturalHeight;
-    if (!w || !h) return;
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-    const scale = 0.12;
-    const sw = Math.floor(w * scale);
-    const sh = Math.floor(h * scale);
-    canvas.width = w;
-    canvas.height = h;
-    ctx.imageSmoothingEnabled = false;
-    ctx.drawImage(img, 0, 0, sw, sh);
-    ctx.drawImage(canvas, 0, 0, sw, sh, 0, 0, w, h);
-    img.src = canvas.toDataURL();
-    img.style.imageRendering = 'pixelated';
-  }
-  if (img.complete) pixelate();
-  else img.addEventListener('load', pixelate);
-})();
+// Profile photo — displayed as-is (original)
 
 // Pixel rain background
 (function () {

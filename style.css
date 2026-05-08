@@ -411,7 +411,7 @@ section {
   height: auto;
   display: block;
   image-rendering: pixelated;
-  filter: none;
+  border-radius: 2px;
 }
 
 .pixel-frame {
