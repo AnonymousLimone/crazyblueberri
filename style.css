@@ -306,12 +306,25 @@ body {
   letter-spacing: 6px;
 }
 
-.glitch-text:hover .name-en {
+/* Desktop hover — no-touch devices only */
+@media (hover: hover) {
+  .glitch-text:hover .name-en {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  .glitch-text:hover .name-zh {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+/* JS click toggle — works on all devices */
+.glitch-text.show-zh .name-en {
   opacity: 0;
   transform: translateY(-4px);
 }
 
-.glitch-text:hover .name-zh {
+.glitch-text.show-zh .name-zh {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
 }
@@ -355,6 +368,13 @@ body {
   opacity: 0.45;
   letter-spacing: 0.3px;
   font-weight: 300;
+}
+
+.hint-tap { display: none; }
+
+@media (hover: none) {
+  .hint-hover { display: none; }
+  .hint-tap { display: inline; }
 }
 
 /* SECTIONS */

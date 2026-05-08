@@ -159,6 +159,16 @@
   }, 400);
 })();
 
+// Name toggle — click to switch between English/Chinese
+(function () {
+  const h1 = document.querySelector('.glitch-text');
+  if (!h1) return;
+  h1.style.cursor = 'pointer';
+  h1.addEventListener('click', () => {
+    h1.classList.toggle('show-zh');
+  });
+})();
+
 // Navbar scroll effect
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
