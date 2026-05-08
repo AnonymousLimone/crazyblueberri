@@ -198,7 +198,7 @@ reveals.forEach(el => observer.observe(el));
 
 // Konami code: ↑↑↓↓←←→→ — Game Boy palette + cat dance
 (function () {
-  const seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowLeft','ArrowRight','ArrowRight'];
+  const seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a'];
   let idx = 0;
   window.konamiActive = false;
 
