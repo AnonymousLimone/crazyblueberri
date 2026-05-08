@@ -52,6 +52,8 @@ xinyaozhang/                    (local dir still named crazyblueberri)
 ├── style.css                   # All styling — layout, colors, animations, responsive, pixel cursor, night mode, konami mode
 ├── script.js                   # Seasonal rain, butterfly, cat, avatar, konami code, logo bounce, day/night, nav, tabs, scroll reveal, loader
 ├── photo.jpg                   # Profile photo (displayed as-is, no runtime processing)
+├── robots.txt                  # Search engine crawler permissions
+├── sitemap.xml                 # Sitemap for search engine indexing
 ├── CLAUDE.md                   # This file — project context for future sessions
 └── .github/
     └── workflows/
@@ -74,6 +76,9 @@ xinyaozhang/                    (local dir still named crazyblueberri)
 - CV section is marked "under construction", no PDF download yet
 - The site is fully responsive (mobile breakpoint at 640px)
 - Photo shows on mobile (was previously hidden, now fixed)
+- SEO in place: meta description, keywords, Open Graph, Twitter card, JSON-LD Person schema, canonical URL, robots.txt, sitemap.xml
+- Chinese name toggle (click "Xinyao Zhang" in hero → 张心瑶 in Noto Sans SC)
+- Footer credits Claude Code + Konami hint
 
 ## Deployment
 
@@ -88,3 +93,5 @@ xinyaozhang/                    (local dir still named crazyblueberri)
 - Keep the understated pixel-art + light anime vibe consistent with any new features
 - Owner's writing tone is casual-academic — correct grammar but don't make it sound overly formal
 - When adding journal articles later, re-add a "Journal Articles" tab to publications
+- When content changes, update sitemap.xml `<lastmod>` date
+- Owner should submit site to Google Search Console for faster indexing
