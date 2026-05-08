@@ -66,7 +66,7 @@
   height: 100%;
   width: 0%;
   background: var(--blue-400);
-  animation: loaderFill 1.2s steps(12) forwards;
+  animation: loaderFill 0.7s steps(10) forwards;
 }
 
 @keyframes loaderFill {
@@ -411,7 +411,7 @@ section {
   height: auto;
   display: block;
   image-rendering: pixelated;
-  filter: saturate(0.6) contrast(0.85) brightness(1.08);
+  filter: none;
 }
 
 .pixel-frame {

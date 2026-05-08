@@ -4,8 +4,8 @@
   if (!overlay) return;
   setTimeout(() => {
     overlay.classList.add('done');
-    setTimeout(() => overlay.remove(), 500);
-  }, 1400);
+    setTimeout(() => overlay.remove(), 400);
+  }, 800);
 })();
 
 // Pixelate profile photo via canvas
@@ -18,7 +18,7 @@
     if (!w || !h) return;
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-    const scale = 0.18;
+    const scale = 0.12;
     const sw = Math.floor(w * scale);
     const sh = Math.floor(h * scale);
     canvas.width = w;
