@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=IBM+Plex+Mono:wght@300;400;500&family=IBM+Plex+Sans:wght@300;400;500&family=Noto+Sans+SC:wght@300;400;500&display=swap');
 
 :root {
   --blue-50: #f0f7ff;
@@ -301,6 +301,9 @@ body {
   transform: translateX(-50%);
   opacity: 0;
   white-space: nowrap;
+  font-family: 'Noto Sans SC', sans-serif;
+  font-weight: 400;
+  letter-spacing: 6px;
 }
 
 .glitch-text:hover .name-en {
