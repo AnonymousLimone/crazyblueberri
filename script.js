@@ -18,7 +18,7 @@
     if (!w || !h) return;
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
-    const scale = 0.12;
+    const scale = 0.18;
     const sw = Math.floor(w * scale);
     const sh = Math.floor(h * scale);
     canvas.width = w;

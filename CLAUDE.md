@@ -1,16 +1,17 @@
-# crazyblueberri
+# Xinyao Zhang — Personal Academic Website
 
-Personal academic website for a behavioral scientist. Hosted on GitHub Pages, auto-deploys on push to `master`.
+Personal academic website for Xinyao Zhang. Hosted on GitHub Pages, auto-deploys on push to `master`.
 
-**Live URL:** https://anonymouslimone.github.io/crazyblueberri/
-**Repo:** https://github.com/AnonymousLimone/crazyblueberri
+**Live URL:** https://anonymouslimone.github.io/xinyaozhang/
+**Repo:** https://github.com/AnonymousLimone/xinyaozhang
 
 ## Owner Profile
 
-- Behavioral scientist
-- Research areas: communication neuroscience, political psychology, social neuroscience
+- Xinyao Zhang — Ph.D. student in Communication Science, University of Amsterdam
+- Research areas: communication neuroscience, political neuroscience, social media, behavioral science
 - Personality: Enneagram 5w4 — intellectual, introspective, creative but understated
 - Prefers things that are not flashy/formal, but also not too loud
+- Likes black cats
 
 ## Design Language
 
@@ -22,11 +23,11 @@ Personal academic website for a behavioral scientist. Hosted on GitHub Pages, au
   - Monospace/labels: `IBM Plex Mono`
 - **Pixel elements:** pixel-border buttons with box-shadow offsets, pixel rain canvas background, pixel-art custom cursor (arrow + pointer hand)
 - **Interactive details:**
-  - Black pixel cat in bottom-right corner (72x72 canvas). Full mouse interaction system:
-    - **Track:** when mouse approaches (~120px), cat's eyes follow the cursor. Occasionally jumps toward mouse.
-    - **Pet:** move mouse back and forth over cat's head area → cat shows happy squint eyes (^_^) and spawns floating pixel hearts.
-    - **Jump:** click the cat → it jumps up toward cursor. Has cooldown between jumps.
-    - **Lonely:** when mouse leaves the cat's area, a pixel yarn ball floats above its head (brief sad state).
+  - Black pixel cat in bottom-right corner (72x96 canvas). Full mouse interaction system:
+    - **Track:** when mouse approaches (~120px), cat's eyes follow the cursor
+    - **Pet:** move mouse back and forth over cat's head → happy squint eyes (^_^), floating pixel hearts
+    - **Blueberry:** click the cat → a pixel blueberry drops from above, cat looks up, eats it, hearts appear
+    - **Lonely:** when mouse leaves, a pixel yarn ball floats above its head (brief sad state)
     - **Sleep:** after 8 seconds of no interaction, cat falls asleep with floating "z" particles. Wakes when mouse approaches.
     - Tail wags faster during active interactions (track/pet). Eyes blink periodically in idle.
   - Avatar smiley block bounces on page load with expression cycle (:/ → :| → :) → :D → :)), wiggles on hover
@@ -34,47 +35,51 @@ Personal academic website for a behavioral scientist. Hosted on GitHub Pages, au
   - Scroll-reveal animations on content sections
   - Falling pixel rain in background (canvas)
   - Navbar blur + shadow on scroll
+  - Pixel-art loading bar on page open (1.2s, steps animation)
+- **Photo treatment:** profile photo in About section is lightly pixelated via JS canvas downscale (scale 0.18) with CSS filter (reduced saturation/contrast) to harmonize with the soft blue palette
 - **Tone:** quiet, curious, slightly playful — never corporate or over-the-top
 
 ## File Structure
 
 ```
-crazyblueberri/
-├── index.html          # Single-page site, all sections in one file
-├── style.css           # All styling — layout, colors, animations, responsive, pixel cursor
-├── script.js           # Pixel rain, cat animation, avatar face animation, nav, tabs, scroll reveal
-├── CLAUDE.md           # This file — project context for future sessions
+xinyaozhang/                    (local dir still named crazyblueberri)
+├── index.html                  # Single-page site, all sections in one file
+├── style.css                   # All styling — layout, colors, animations, responsive, pixel cursor
+├── script.js                   # Pixel rain, cat animation, avatar face, photo pixelation, nav, tabs, scroll reveal, loader
+├── photo.jpg                   # Profile photo (original, pixelated at runtime by JS)
+├── CLAUDE.md                   # This file — project context for future sessions
 └── .github/
     └── workflows/
-        └── pages.yml   # GitHub Actions workflow for auto-deploying to GitHub Pages
+        └── pages.yml           # GitHub Actions workflow for auto-deploying to GitHub Pages
 ```
 
 ## Page Sections (in order)
 
-1. **Hero** (`#hero`) — pixel avatar with animated face, site name "crazyblueberri" in pixel font, subtitle with research keywords, decorative twinkling stars
-2. **About** (`#about`) — three paragraphs of bio text, email link button, ASCII brain art decoration on the side
-3. **Publications** (`#publications`) — tabbed interface (journal articles / conference papers), entries organized by year with author, title, venue, and [pdf]/[doi] links
-4. **Teaching** (`#teaching`) — 3-column card grid, each card has emoji icon, course title, term, description
-5. **CV** (`#cv`) — PDF download button, education timeline, methods/skills tag cloud
+1. **Hero** (`#hero`) — pixel avatar with animated face, "Xinyao Zhang" in pixel font, subtitle with research keywords, twinkling stars
+2. **About** (`#about`) — bio text, email + Bluesky links, pixelated profile photo on the right (visible on mobile too)
+3. **Publications** (`#publications`) — tabbed: Conferences / Workshops. Journal articles tab removed (all currently in review). Entries organized by year, Zhang X. bolded.
+4. **Teaching** (`#teaching`) — 3-column card grid: Communication Research 1 (📊), Persuasive Communication (📢), Graduation Project (🎓). Ordered newest first. Student evaluations shown.
+5. **CV** (`#cv`) — marked "under construction". Education timeline (PhD, Research MSc, double BA), skills tags, languages tags.
 6. **Footer** — one-liner "built with pixels & curiosity"
 
 ## Current State
 
-- All text content is **Lorem Ipsum placeholder** — no real personal info has been added yet
-- The email link points to `mailto:your@email.com` (placeholder)
-- The CV download points to `cv.pdf` which does not exist yet
-- Google Scholar and GitHub external links have been intentionally removed from the about section (owner hasn't decided what links to include)
-- Publication [pdf] and [doi] links are `#` placeholders
+- Real content filled in for: name, bio, email, Bluesky, publications (4 conferences + 1 workshop), teaching (3 courses), CV (education, skills, languages)
+- Journal articles tab intentionally hidden — papers are in review
+- CV section is marked "under construction", no PDF download yet
 - The site is fully responsive (mobile breakpoint at 640px)
+- Photo shows on mobile (was previously hidden, now fixed)
 
 ## Deployment
 
-- Push to `master` → GitHub Actions workflow (`.github/workflows/pages.yml`) → auto-deploys to GitHub Pages
+- Push to `master` → GitHub Actions workflow → auto-deploys to GitHub Pages
 - Pure static HTML/CSS/JS, no build step, no dependencies, no framework
+- **Note:** local directory is still named `crazyblueberri` but the GitHub repo is `xinyaozhang`
 
 ## Notes for Future Sessions
 
 - Owner does not write code — all code changes go through Claude
 - Owner prefers minimal permission confirmations
-- Next steps: replace Lorem Ipsum with real content when owner is ready to add personal information
 - Keep the understated pixel-art + light anime vibe consistent with any new features
+- Owner's writing tone is casual-academic — correct grammar but don't make it sound overly formal
+- When adding journal articles later, re-add a "Journal Articles" tab to publications
