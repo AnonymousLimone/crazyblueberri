@@ -286,6 +286,31 @@ body {
   letter-spacing: 2px;
   margin-bottom: 16px;
   text-shadow: 2px 2px 0 var(--blue-100);
+  position: relative;
+}
+
+.name-en,
+.name-zh {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.name-zh {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  opacity: 0;
+  white-space: nowrap;
+}
+
+.glitch-text:hover .name-en {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+.glitch-text:hover .name-zh {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
 
 .subtitle {
@@ -317,6 +342,16 @@ body {
 @keyframes twinkle {
   0%, 100% { opacity: 0.3; }
   50% { opacity: 1; }
+}
+
+.name-hint {
+  font-family: var(--mono-font);
+  font-size: 11px;
+  color: var(--blue-300);
+  margin-top: 12px;
+  opacity: 0.45;
+  letter-spacing: 0.3px;
+  font-weight: 300;
 }
 
 /* SECTIONS */
