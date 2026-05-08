@@ -9,7 +9,7 @@ Personal academic website for Xinyao Zhang. Hosted on GitHub Pages, auto-deploys
 
 - Xinyao Zhang — Ph.D. student in Communication Science, University of Amsterdam
 - Research areas: communication neuroscience, political neuroscience, social media, behavioral science
-- Personality: Enneagram 5w4
+- Personality: Enneagram 5w4 — intellectual, introspective, creative but understated
 - Prefers things that are not flashy/formal, but also not too loud
 - Likes black cats
 
@@ -64,7 +64,7 @@ xinyaozhang/                    (local dir still named crazyblueberri)
 1. **Hero** (`#hero`) — pixel avatar with animated face, "Xinyao Zhang" in pixel font (click to toggle Chinese name 张心瑶 in Noto Sans SC), subtitle with research keywords, twinkling stars, subtle hint "click my name for 中文"
 2. **About** (`#about`) — bio text, email + Bluesky links, profile photo on the right (visible on mobile too). "behavioral and psychological level" and "neural level" are highlighted.
 3. **Publications** (`#publications`) — tabbed: Conferences / Workshops. Journal articles tab removed (all currently in review). Entries organized by year, Zhang X. bolded.
-4. **Teaching** (`#teaching`) — 3-column card grid: Communication Research 1 (📊), Persuasive Communication (📢), Graduation Project (🎓). Ordered newest first. Student evaluations shown.
+4. **Teaching** (`#teaching`) — 3-column card grid: Communication Research 1 (📊), Persuasive Communication (📢), Graduation Project (🎓). Ordered newest first. Student evaluations shown (CR1 and Persuasive Communication only).
 5. **CV** (`#cv`) — marked "under construction". Education timeline (PhD, Research MSc, double BA), skills tags, languages tags.
    - Skills: fMRI, Experiment, R, LaTeX, Nilearn (Python), EEGLAB (MATLAB)
    - Languages: Mandarin Chinese (Native), English (C1), Japanese (N1), Dutch (A2)
@@ -89,9 +89,10 @@ xinyaozhang/                    (local dir still named crazyblueberri)
 
 ## Notes for Future Sessions
 
-- All code changes go through Claude
+- Owner does not write code — all code changes go through Claude
 - Owner prefers minimal permission confirmations
 - Keep the understated pixel-art + light anime vibe consistent with any new features
 - Owner's writing tone is casual-academic — correct grammar but don't make it sound overly formal
 - When adding journal articles later, re-add a "Journal Articles" tab to publications
 - When content changes, update sitemap.xml `<lastmod>` date
+- Owner should submit site to Google Search Console for faster indexing
