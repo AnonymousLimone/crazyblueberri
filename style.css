@@ -785,3 +785,94 @@ footer {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* NIGHT MODE — auto-applied 8pm–7am */
+body.night-mode {
+  --bg: #0e1a2e;
+  --bg-card: #152238;
+  --text: #c0d0e0;
+  --text-light: #7090b0;
+  --blue-50: #0e1a2e;
+  --blue-100: #152a42;
+  --blue-200: #1e3a5a;
+  --blue-300: #2a5a8a;
+  --blue-400: #4a8ac0;
+  --blue-500: #5aa0d8;
+  --blue-600: #70b0e0;
+  --blue-700: #90c8f0;
+  --blue-800: #b0d8f8;
+  --blue-900: #d0e8ff;
+  --border-pixel: 2px solid var(--blue-200);
+}
+
+body.night-mode #navbar {
+  background: rgba(14, 26, 46, 0.92);
+}
+
+body.night-mode #loader-overlay {
+  background: var(--bg);
+}
+
+body.night-mode #publications,
+body.night-mode #cv {
+  background: #0a1420;
+}
+
+body.night-mode .nav-links.open {
+  background: rgba(14, 26, 46, 0.98);
+}
+
+body.night-mode .pub-tab.active {
+  border-color: var(--blue-500);
+}
+
+/* KONAMI MODE — Game Boy green palette, 5 seconds */
+body.konami-mode {
+  --bg: #c4cfa1;
+  --bg-card: #b5c28e;
+  --text: #1a2b0f;
+  --text-light: #3a5020;
+  --blue-50: #d4dfc0;
+  --blue-100: #c4cfa1;
+  --blue-200: #8a9f5a;
+  --blue-300: #6a8030;
+  --blue-400: #4a6020;
+  --blue-500: #3a5010;
+  --blue-600: #2a3a08;
+  --blue-700: #1a2b0f;
+  --blue-800: #0f1a08;
+  --blue-900: #081008;
+  --border-pixel: 2px solid #6a8030;
+  transition: all 0.4s ease;
+}
+
+body.konami-mode #navbar {
+  background: rgba(196, 207, 161, 0.92);
+}
+
+body.konami-mode #loader-overlay {
+  background: var(--bg);
+}
+
+body.konami-mode #publications,
+body.konami-mode #cv {
+  background: #aabb80;
+}
+
+body.konami-mode .nav-links.open {
+  background: rgba(196, 207, 161, 0.98);
+}
+
+body.konami-mode .pub-tab.active {
+  background: #3a5010;
+  border-color: #3a5010;
+}
+
+body.konami-mode .highlight {
+  color: #3a5010;
+  border-bottom-color: #6a8030;
+}
+
+body.konami-mode #pixel-rain {
+  opacity: 0.15;
+}

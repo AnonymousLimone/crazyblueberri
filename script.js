@@ -1,3 +1,9 @@
+// Day/Night auto mode — darker palette after 8pm, before 7am
+(function () {
+  const hour = new Date().getHours();
+  if (hour >= 20 || hour < 7) document.body.classList.add('night-mode');
+})();
+
 // Loader
 (function () {
   const overlay = document.getElementById('loader-overlay');
@@ -10,52 +16,132 @@
 
 // Profile photo — displayed as-is (original)
 
-// Pixel rain background
+// Seasonal pixel rain + butterfly
 (function () {
   const canvas = document.getElementById('pixel-rain');
   const ctx = canvas.getContext('2d');
   let w, h;
-  const pixels = [];
-  const PIXEL_COUNT = 35;
+  const particles = [];
+  const COUNT = 35;
 
-  function resize() {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-  }
+  const month = new Date().getMonth();
+  const season = (month >= 2 && month <= 4) ? 'spring'
+    : (month >= 5 && month <= 7) ? 'summer'
+    : (month >= 8 && month <= 10) ? 'autumn' : 'winter';
 
-  function createPixel() {
+  const palette = {
+    spring: ['255,183,197', '255,200,210', '255,160,180', '255,220,230'],
+    summer: ['138,200,255', '90,173,255', '186,221,255'],
+    autumn: ['255,180,100', '230,140,80', '200,120,60', '255,200,120'],
+    winter: ['220,230,255', '200,215,240', '240,245,255'],
+  };
+
+  function resize() { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; }
+
+  function makeParticle() {
+    const cols = palette[season];
     return {
-      x: Math.random() * w,
-      y: Math.random() * h,
-      size: Math.random() * 3 + 1,
-      speed: Math.random() * 0.3 + 0.1,
+      x: Math.random() * w, y: Math.random() * h,
+      size: season === 'winter' ? Math.random() * 2 + 2
+        : season === 'spring' ? Math.random() * 3 + 2
+        : Math.random() * 3 + 1,
+      speed: season === 'winter' ? Math.random() * 0.15 + 0.05 : Math.random() * 0.3 + 0.1,
       opacity: Math.random() * 0.4 + 0.1,
-      drift: (Math.random() - 0.5) * 0.2,
+      drift: season === 'spring' ? (Math.random() - 0.5) * 0.5
+        : season === 'autumn' ? (Math.random() - 0.3) * 0.4
+        : (Math.random() - 0.5) * 0.2,
+      col: cols[Math.floor(Math.random() * cols.length)],
+      wobble: Math.random() * Math.PI * 2,
+      wSpeed: Math.random() * 0.02 + 0.01,
     };
   }
 
-  function init() {
-    resize();
-    for (let i = 0; i < PIXEL_COUNT; i++) pixels.push(createPixel());
+  resize();
+  for (let i = 0; i < COUNT; i++) particles.push(makeParticle());
+
+  // Butterfly
+  const bfly = {
+    active: false, x: 0, y: 0, startY: 0, dir: 1,
+    speed: 0, phase: 0, sine: 0,
+    lastSpawn: Date.now(),
+    interval: 20000 + Math.random() * 20000,
+  };
+  window.butterflyPos = { active: false, x: 0, y: 0 };
+
+  function spawnBfly() {
+    bfly.active = true;
+    bfly.dir = Math.random() > 0.5 ? 1 : -1;
+    bfly.x = bfly.dir === 1 ? -20 : w + 20;
+    bfly.startY = Math.random() * h * 0.5 + h * 0.15;
+    bfly.y = bfly.startY;
+    bfly.sine = 0; bfly.phase = 0;
+    bfly.speed = 0.5 + Math.random() * 0.4;
+  }
+
+  function drawBfly(x, y, wingUp) {
+    const s = 2;
+    const c1 = season === 'spring' ? '#f8a4c0' : season === 'autumn' ? '#ffa060' : season === 'winter' ? '#c0d8ff' : '#8ec8ff';
+    const c2 = season === 'spring' ? '#e878a0' : season === 'autumn' ? '#e08040' : season === 'winter' ? '#a0c0f0' : '#5aadff';
+    ctx.fillStyle = '#4a4a6a';
+    ctx.fillRect(x, y, s, s * 3);
+    ctx.fillStyle = c1;
+    if (wingUp) {
+      ctx.fillRect(x - s * 2, y - s, s * 2, s * 2);
+      ctx.fillRect(x + s, y - s, s * 2, s * 2);
+    } else {
+      ctx.fillRect(x - s * 2, y, s * 2, s * 2);
+      ctx.fillRect(x + s, y, s * 2, s * 2);
+    }
+    ctx.fillStyle = c2;
+    const wy = wingUp ? y + s : y + s * 2;
+    ctx.fillRect(x - s, wy, s, s);
+    ctx.fillRect(x + s, wy, s, s);
   }
 
   function draw() {
     ctx.clearRect(0, 0, w, h);
-    for (const p of pixels) {
-      ctx.fillStyle = `rgba(138, 200, 255, ${p.opacity})`;
-      ctx.fillRect(Math.round(p.x), Math.round(p.y), p.size, p.size);
-      p.y += p.speed;
-      p.x += p.drift;
-      if (p.y > h + 4) {
-        p.y = -4;
-        p.x = Math.random() * w;
+    for (const p of particles) {
+      ctx.fillStyle = `rgba(${p.col},${p.opacity})`;
+      p.wobble += p.wSpeed;
+      const wx = Math.sin(p.wobble) * (season === 'autumn' ? 2 : season === 'spring' ? 1.5 : season === 'winter' ? 1 : 0);
+      if (season === 'spring') {
+        ctx.fillRect(Math.round(p.x + wx), Math.round(p.y), p.size, p.size * 0.7);
+        ctx.fillRect(Math.round(p.x + wx + 1), Math.round(p.y + 1), p.size * 0.7, p.size);
+      } else if (season === 'winter') {
+        ctx.fillRect(Math.round(p.x + wx), Math.round(p.y), p.size, 1);
+        ctx.fillRect(Math.round(p.x + wx + p.size / 2 - 0.5), Math.round(p.y - p.size / 2 + 0.5), 1, p.size);
+      } else if (season === 'autumn') {
+        ctx.fillRect(Math.round(p.x + wx), Math.round(p.y), p.size, p.size * 0.6);
+      } else {
+        ctx.fillRect(Math.round(p.x), Math.round(p.y), p.size, p.size);
+      }
+      p.y += p.speed; p.x += p.drift;
+      if (p.y > h + 4) { p.y = -4; p.x = Math.random() * w; }
+    }
+
+    // Butterfly
+    const now = Date.now();
+    if (!bfly.active && now - bfly.lastSpawn > bfly.interval) {
+      spawnBfly(); bfly.lastSpawn = now;
+      bfly.interval = 20000 + Math.random() * 20000;
+    }
+    if (bfly.active) {
+      bfly.x += bfly.speed * bfly.dir;
+      bfly.sine += 0.025;
+      bfly.y = bfly.startY + Math.sin(bfly.sine) * 35;
+      bfly.phase += 0.12;
+      drawBfly(Math.round(bfly.x), Math.round(bfly.y), Math.sin(bfly.phase) > 0);
+      window.butterflyPos = { active: true, x: bfly.x, y: bfly.y };
+      if ((bfly.dir === 1 && bfly.x > w + 30) || (bfly.dir === -1 && bfly.x < -30)) {
+        bfly.active = false;
+        window.butterflyPos = { active: false, x: 0, y: 0 };
       }
     }
+
     requestAnimationFrame(draw);
   }
 
   window.addEventListener('resize', resize);
-  init();
   draw();
 })();
 
@@ -68,10 +154,7 @@
   face.textContent = expressions[0];
   const interval = setInterval(() => {
     i++;
-    if (i >= expressions.length) {
-      clearInterval(interval);
-      return;
-    }
+    if (i >= expressions.length) { clearInterval(interval); return; }
     face.textContent = expressions[i];
   }, 400);
 })();
@@ -86,7 +169,6 @@ window.addEventListener('scroll', () => {
 document.querySelector('.nav-toggle').addEventListener('click', () => {
   document.querySelector('.nav-links').classList.toggle('open');
 });
-
 document.querySelectorAll('.nav-links a').forEach(a => {
   a.addEventListener('click', () => {
     document.querySelector('.nav-links').classList.remove('open');
@@ -108,18 +190,79 @@ const reveals = document.querySelectorAll(
   '.about-content, .pub-year-group, .course-card, .cv-block'
 );
 reveals.forEach(el => el.classList.add('reveal'));
-
 const observer = new IntersectionObserver(
-  entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-      }
-    });
-  },
+  entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); },
   { threshold: 0.1 }
 );
 reveals.forEach(el => observer.observe(el));
+
+// Konami code: ↑↑↓↓←←→→ — Game Boy palette + cat dance
+(function () {
+  const seq = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowLeft','ArrowRight','ArrowRight'];
+  let idx = 0;
+  window.konamiActive = false;
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === seq[idx]) {
+      idx++;
+      if (idx === seq.length) {
+        idx = 0;
+        if (!window.konamiActive) {
+          window.konamiActive = true;
+          document.body.classList.add('konami-mode');
+          setTimeout(() => {
+            document.body.classList.remove('konami-mode');
+            window.konamiActive = false;
+          }, 5000);
+        }
+      }
+    } else {
+      idx = e.key === seq[0] ? 1 : 0;
+    }
+  });
+})();
+
+// Logo blueberry bounce — click nav 🫐 to drop a bouncing blueberry
+(function () {
+  const logo = document.querySelector('.nav-logo');
+  if (!logo) return;
+  let dropping = false;
+
+  logo.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (dropping) return;
+    dropping = true;
+
+    const rect = logo.getBoundingClientRect();
+    const berry = document.createElement('span');
+    berry.textContent = '🫐';
+    berry.style.cssText = 'position:fixed;font-size:20px;z-index:9999;pointer-events:none;';
+    berry.style.left = (rect.left + rect.width / 2 - 10) + 'px';
+    berry.style.top = rect.bottom + 'px';
+    document.body.appendChild(berry);
+
+    let y = 0, vel = 0, bounces = 0;
+    const floor = window.innerHeight - rect.bottom - 30;
+
+    function tick() {
+      vel += 0.5;
+      y += vel;
+      if (y >= floor) {
+        y = floor; vel = -vel * 0.55; bounces++;
+        if (bounces >= 4) {
+          berry.style.transition = 'opacity 0.3s';
+          berry.style.opacity = '0';
+          setTimeout(() => { berry.remove(); dropping = false; }, 300);
+          return;
+        }
+      }
+      berry.style.top = (rect.bottom + y) + 'px';
+      requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+})();
 
 // Pixel Black Cat — interactive
 (function () {
@@ -140,9 +283,12 @@ reveals.forEach(el => observer.observe(el));
   const BERRY_MID = '#5a45a0';
   const BERRY_LIGHT = '#7b68c4';
   const BERRY_LEAF = '#6aab7a';
+  const HAT_RED = '#e85a7a';
+  const HAT_GOLD = '#ffd866';
+  const HAT_TIP = '#ff8ca0';
 
-  // states: idle, track, pet, eat, lonely, sleep
-  let state = 'idle';
+  // states: idle, track, pet, eat, lonely, sleep, dance
+  let state = document.body.classList.contains('night-mode') ? 'sleep' : 'idle';
   let frame = 0;
   let idleTimer = 0;
   let tailWag = 0;
@@ -157,7 +303,7 @@ reveals.forEach(el => observer.observe(el));
   let mouseRelX = 0;
   let mouseRelY = 0;
 
-  const particles = [];
+  const catParticles = [];
 
   // blueberry drop
   let berryY = -10;
@@ -174,9 +320,11 @@ reveals.forEach(el => observer.observe(el));
   let lastPetX = -1;
   let petCooldown = 0;
 
-  const catEl = canvas.parentElement;
+  // dance (konami)
+  let danceTimer = 0;
 
-  const CAT_OY = 8; // fixed vertical offset — room above for particles/berry
+  const catEl = canvas.parentElement;
+  const CAT_OY = 8;
 
   function updateMouseState(e) {
     const rect = catEl.getBoundingClientRect();
@@ -197,13 +345,13 @@ reveals.forEach(el => observer.observe(el));
     if (mouseNear) {
       lastInteraction = Date.now();
       if (state === 'sleep') { state = 'track'; idleTimer = 0; }
-      if (state !== 'pet' && state !== 'eat' && state !== 'lonely') {
+      if (state !== 'pet' && state !== 'eat' && state !== 'lonely' && state !== 'dance') {
         state = 'track';
         idleTimer = 0;
       }
     }
 
-    if (!mouseNear && wasNear && state !== 'sleep' && state !== 'lonely' && state !== 'eat') {
+    if (!mouseNear && wasNear && state !== 'sleep' && state !== 'lonely' && state !== 'eat' && state !== 'dance') {
       state = 'lonely';
       lonelyTimer = 0;
     }
@@ -241,7 +389,7 @@ reveals.forEach(el => observer.observe(el));
 
   // particles
   function spawnHeart() {
-    particles.push({
+    catParticles.push({
       type: 'heart',
       x: 4 + Math.random() * 6,
       y: CAT_OY - 3,
@@ -252,7 +400,7 @@ reveals.forEach(el => observer.observe(el));
   }
 
   function spawnYarn() {
-    particles.push({
+    catParticles.push({
       type: 'yarn',
       x: 5 + Math.random() * 4,
       y: CAT_OY - 3,
@@ -298,8 +446,40 @@ reveals.forEach(el => observer.observe(el));
     drawPixel(15,8+oy+offY,DARK);
   }
 
+  // Party hat for Konami dance
+  function drawHat(oy) {
+    // small triangular party hat above the ears
+    drawPixel(6,-1+oy,HAT_TIP);  // tip
+    drawPixel(5,0+oy,HAT_RED); drawPixel(6,0+oy,HAT_RED); drawPixel(7,0+oy,HAT_RED);
+    drawPixel(5,1+oy,HAT_GOLD); drawPixel(6,1+oy,HAT_RED); drawPixel(7,1+oy,HAT_GOLD); drawPixel(8,1+oy,HAT_RED);
+  }
+
   function drawTrackingEyes(oy) {
     let ex=0, ey=0;
+
+    // Check if butterfly is close and visible
+    const bp = window.butterflyPos;
+    if (bp && bp.active) {
+      const rect = catEl.getBoundingClientRect();
+      const catCX = rect.left + rect.width / 2;
+      const catCY = rect.top + rect.height / 2;
+      const bdx = bp.x - catCX;
+      const bdy = bp.y - catCY;
+      const bdist = Math.sqrt(bdx * bdx + bdy * bdy);
+      if (bdist < 300) {
+        // Track butterfly instead of mouse
+        if (Math.abs(bdx) > 10) ex = bdx > 0 ? 1 : -1;
+        if (Math.abs(bdy) > 10) ey = bdy > 0 ? 1 : 0;
+        const lx=4+ex, rx=8+ex, ty=3+ey;
+        drawPixel(lx,ty+oy,EYE); drawPixel(lx+1,ty+oy,EYE);
+        drawPixel(lx,ty+1+oy,EYE); drawPixel(lx+1,ty+1+oy,EYE);
+        drawPixel(rx,ty+oy,EYE); drawPixel(rx+1,ty+oy,EYE);
+        drawPixel(rx,ty+1+oy,EYE); drawPixel(rx+1,ty+1+oy,EYE);
+        drawPixel(6,5+oy,NOSE); drawPixel(7,5+oy,NOSE);
+        return;
+      }
+    }
+
     if (Math.abs(mouseRelX)>10) ex = mouseRelX>0?1:-1;
     if (Math.abs(mouseRelY)>10) ey = mouseRelY>0?1:0;
     const lx=4+ex, rx=8+ex, ty=3+ey;
@@ -391,7 +571,7 @@ reveals.forEach(el => observer.observe(el));
   function render() {
     ctx.clearRect(0,0,CW,CH);
     frame++;
-    tailWag += (state==='pet'||state==='track') ? 0.3 : 0.12;
+    tailWag += (state==='pet'||state==='track'||state==='dance') ? 0.3 : 0.12;
 
     blinkTimer++;
     if (blinkTimer>70 && !blinking) { blinking=true; blinkTimer=0; }
@@ -400,7 +580,18 @@ reveals.forEach(el => observer.observe(el));
     if (berryCooldown>0) berryCooldown--;
     if (petCooldown>0) petCooldown--;
 
-    if (Date.now()-lastInteraction > SLEEP_AFTER && state!=='sleep' && state!=='lonely' && state!=='eat') {
+    // Konami dance trigger
+    if (window.konamiActive && state !== 'dance') {
+      state = 'dance';
+      danceTimer = 0;
+      lastInteraction = Date.now();
+    }
+    if (!window.konamiActive && state === 'dance') {
+      state = mouseNear ? 'track' : 'idle';
+      idleTimer = 0;
+    }
+
+    if (Date.now()-lastInteraction > SLEEP_AFTER && state!=='sleep' && state!=='lonely' && state!=='eat' && state!=='dance') {
       state='sleep'; idleTimer=0;
     }
 
@@ -417,12 +608,19 @@ reveals.forEach(el => observer.observe(el));
       }
     }
 
-    const oy = CAT_OY;
+    // Dance bounce offset
+    const danceOff = state === 'dance' ? Math.round(Math.sin(frame * 0.25) * 1.5) : 0;
+    const oy = CAT_OY + danceOff;
 
     // draw cat
     drawCatBase(oy);
     drawBody(oy);
     drawTail(oy, tailWag);
+
+    // Konami hat
+    if (state === 'dance') {
+      drawHat(oy);
+    }
 
     // draw falling/landed blueberry
     if (berryActive) {
@@ -457,7 +655,6 @@ reveals.forEach(el => observer.observe(el));
           drawLookUpEyes(oy);
           drawBlueberry(6, CAT_OY-1);
         } else if (eatTimer < 50) {
-          // eating — happy face, berry gone
           drawHappyEyes(oy);
           if (eatTimer===20) spawnHeart();
         } else {
@@ -478,11 +675,17 @@ reveals.forEach(el => observer.observe(el));
         drawSleepEyes(oy);
         drawZzz(frame);
         break;
+
+      case 'dance':
+        drawHappyEyes(oy);
+        danceTimer++;
+        if (Math.random()<0.06) spawnHeart();
+        break;
     }
 
     // particles
-    for (let i=particles.length-1; i>=0; i--) {
-      const p = particles[i];
+    for (let i=catParticles.length-1; i>=0; i--) {
+      const p = catParticles[i];
       p.x += p.vx;
       p.y += p.vy;
       p.life--;
@@ -495,7 +698,7 @@ reveals.forEach(el => observer.observe(el));
         p.rot += 0.08;
         drawYarnBall(p.x, p.y, alpha, p.rot);
       }
-      if (p.life<=0) particles.splice(i,1);
+      if (p.life<=0) catParticles.splice(i,1);
     }
 
     requestAnimationFrame(render);

@@ -33,10 +33,14 @@ Personal academic website for Xinyao Zhang. Hosted on GitHub Pages, auto-deploys
   - Avatar smiley block bounces on page load with expression cycle (:/ → :| → :) → :D → :)), wiggles on hover
   - Emojis (course icons, nav logo, footer stars) bounce on hover
   - Scroll-reveal animations on content sections
-  - Falling pixel rain in background (canvas)
+  - **Seasonal pixel rain** — background particles change by month: spring (Mar–May) = pink cherry blossom petals, summer (Jun–Aug) = blue pixels, autumn (Sep–Nov) = amber leaves, winter (Dec–Feb) = white snowflakes
+  - **Pixel butterfly** — appears every ~25–40s, floats across the screen on a sine wave. Color matches the season. Cat's eyes follow it when nearby (<300px).
+  - **Konami code** (↑↑↓↓←←→→) — triggers a 5-second Game Boy green color palette swap. Cat wears a party hat and dances (bouncing animation + happy eyes + hearts).
+  - **Logo blueberry bounce** — clicking the 🫐 nav logo drops a blueberry emoji that bounces with gravity physics, then fades out. Also scrolls to top.
+  - **Day/night auto mode** — checks the hour on page load. Between 8pm and 7am, applies `.night-mode` class which overrides CSS variables to a dark navy palette. Cat defaults to sleep state at night.
   - Navbar blur + shadow on scroll
-  - Pixel-art loading bar on page open (1.2s, steps animation)
-- **Photo treatment:** profile photo in About section is lightly pixelated via JS canvas downscale (scale 0.18) with CSS filter (reduced saturation/contrast) to harmonize with the soft blue palette
+  - Pixel-art loading bar on page open (0.8s wait + 0.7s steps animation)
+- **Photo treatment:** profile photo displayed as-is (original image, no pixelation or filter)
 - **Tone:** quiet, curious, slightly playful — never corporate or over-the-top
 
 ## File Structure
@@ -44,9 +48,9 @@ Personal academic website for Xinyao Zhang. Hosted on GitHub Pages, auto-deploys
 ```
 xinyaozhang/                    (local dir still named crazyblueberri)
 ├── index.html                  # Single-page site, all sections in one file
-├── style.css                   # All styling — layout, colors, animations, responsive, pixel cursor
-├── script.js                   # Pixel rain, cat animation, avatar face, photo pixelation, nav, tabs, scroll reveal, loader
-├── photo.jpg                   # Profile photo (original, pixelated at runtime by JS)
+├── style.css                   # All styling — layout, colors, animations, responsive, pixel cursor, night mode, konami mode
+├── script.js                   # Seasonal rain, butterfly, cat, avatar, konami code, logo bounce, day/night, nav, tabs, scroll reveal, loader
+├── photo.jpg                   # Profile photo (displayed as-is, no runtime processing)
 ├── CLAUDE.md                   # This file — project context for future sessions
 └── .github/
     └── workflows/
