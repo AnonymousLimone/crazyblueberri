@@ -31,14 +31,13 @@ Personal academic website for Xinyao Zhang. Hosted on GitHub Pages, auto-deploys
     - **Lonely:** when mouse leaves, a pixel yarn ball floats above its head (brief sad state)
     - **Sleep:** after 8 seconds of no interaction, cat falls asleep with floating "z" particles. Wakes when mouse approaches.
     - Tail wags faster during active interactions (track/pet). Eyes blink periodically in idle.
-  - Avatar smiley block bounces on page load with expression cycle (:/ → :| → :) → :D → :)), wiggles on hover
+  - Avatar block: entrance animation (:/ → :| → :) → :D → :)), then clickable to cycle icons: :) → 🧠 (neuroscience) → 💬 (communication). Wiggles on hover.
   - Emojis (course icons, nav logo, footer stars) bounce on hover
   - Scroll-reveal animations on content sections
-  - **Seasonal pixel rain** — background particles change by month: spring (Mar–May) = pink cherry blossom petals, summer (Jun–Aug) = blue pixels, autumn (Sep–Nov) = amber leaves, winter (Dec–Feb) = white snowflakes
-  - **Pixel butterfly** — appears every ~25–40s, floats across the screen on a sine wave. Color matches the season. Cat's eyes follow it when nearby (<300px).
+  - **Seasonal pixel rain** — background particles change by month: spring (Mar–May) = deep pink cherry blossom petals (larger, more visible), summer (Jun–Aug) = blue pixels, autumn (Sep–Nov) = amber leaves, winter (Dec–Feb) = white snowflakes. Canvas opacity 0.5.
   - **Konami code** (↑↑↓↓←→←→BA) — triggers a 5-second Game Boy green color palette swap. Cat wears a party hat and dances (bouncing animation + happy eyes + hearts). Footer has a subtle hint "psst... try the konami code".
   - **Logo blueberry bounce** — clicking the 🫐 nav logo drops a blueberry emoji that bounces with gravity physics, then fades out. Also scrolls to top.
-  - **Day/night auto mode** — checks the hour on page load. Between 8pm and 7am, applies `.night-mode` class which overrides CSS variables to a dark navy palette. Cat defaults to sleep state at night.
+  - **Day/night auto mode** — checks the hour on page load. Between 8pm and 7am, applies `.night-mode` class which overrides CSS variables to a dark navy palette. Cat uses lighter gray colors (#4a4a60) at night for visibility, and defaults to sleep state.
   - Navbar blur + shadow on scroll
   - Pixel-art loading bar on page open (0.8s wait + 0.7s steps animation)
 - **Photo treatment:** profile photo displayed as-is (original image, no pixelation or filter)
@@ -50,7 +49,7 @@ Personal academic website for Xinyao Zhang. Hosted on GitHub Pages, auto-deploys
 xinyaozhang/                    (local dir still named crazyblueberri)
 ├── index.html                  # Single-page site, all sections in one file
 ├── style.css                   # All styling — layout, colors, animations, responsive, pixel cursor, night mode, konami mode
-├── script.js                   # Seasonal rain, butterfly, cat, avatar, konami code, logo bounce, day/night, nav, tabs, scroll reveal, loader
+├── script.js                   # Seasonal rain, cat, avatar icon cycle, konami code, logo bounce, day/night, nav, tabs, scroll reveal, loader
 ├── photo.jpg                   # Profile photo (displayed as-is, no runtime processing)
 ├── robots.txt                  # Search engine crawler permissions
 ├── sitemap.xml                 # Sitemap for search engine indexing
@@ -71,7 +70,7 @@ xinyaozhang/                    (local dir still named crazyblueberri)
 
 ## Current State
 
-- Real content filled in for: name, bio, email, Bluesky, publications (4 conferences + 1 workshop), teaching (3 courses), CV (education, skills, languages)
+- Real content filled in for: name, bio, email, Bluesky, publications (5 conferences + 1 workshop), teaching (3 courses), CV (education, skills, languages)
 - Journal articles tab intentionally hidden — papers are in review
 - CV section is marked "under construction", no PDF download yet
 - The site is fully responsive (mobile breakpoint at 640px)
