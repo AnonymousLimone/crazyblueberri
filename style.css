@@ -498,6 +498,14 @@ section {
   border-color: var(--blue-300);
 }
 
+.pub-date {
+  font-family: var(--mono-font);
+  font-size: 11px;
+  color: var(--blue-400);
+  display: block;
+  margin-bottom: 4px;
+}
+
 .pub-authors {
   font-size: 14px;
   color: var(--text-light);
