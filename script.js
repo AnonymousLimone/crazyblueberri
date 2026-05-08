@@ -30,7 +30,7 @@
     : (month >= 8 && month <= 10) ? 'autumn' : 'winter';
 
   const palette = {
-    spring: ['255,150,175', '255,130,160', '240,120,150', '255,170,190'],
+    spring: ['255,183,197', '255,200,210', '255,160,180', '255,220,230'],
     summer: ['138,200,255', '90,173,255', '186,221,255'],
     autumn: ['255,180,100', '230,140,80', '200,120,60', '255,200,120'],
     winter: ['220,230,255', '200,215,240', '240,245,255'],
@@ -43,14 +43,13 @@
     return {
       x: Math.random() * w, y: Math.random() * h,
       size: season === 'winter' ? Math.random() * 2 + 2
-        : season === 'spring' ? Math.random() * 4 + 3
+        : season === 'spring' ? Math.random() * 3 + 2
         : Math.random() * 3 + 1,
       speed: season === 'winter' ? Math.random() * 0.15 + 0.05
         : season === 'spring' ? Math.random() * 0.25 + 0.08
         : Math.random() * 0.3 + 0.1,
-      opacity: season === 'spring' ? Math.random() * 0.4 + 0.25
-        : Math.random() * 0.4 + 0.1,
-      drift: season === 'spring' ? (Math.random() - 0.5) * 0.6
+      opacity: Math.random() * 0.4 + 0.1,
+      drift: season === 'spring' ? (Math.random() - 0.5) * 0.5
         : season === 'autumn' ? (Math.random() - 0.3) * 0.4
         : (Math.random() - 0.5) * 0.2,
       col: cols[Math.floor(Math.random() * cols.length)],
