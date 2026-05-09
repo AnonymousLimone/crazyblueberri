@@ -235,6 +235,59 @@ reveals.forEach(el => observer.observe(el));
   });
 })();
 
+// Shake detection — wake the cat on mobile
+(function () {
+  let lastShake = 0;
+  let lastX = 0, lastY = 0, lastZ = 0;
+  let shakeCount = 0;
+
+  window.addEventListener('devicemotion', (e) => {
+    const a = e.accelerationIncludingGravity;
+    if (!a) return;
+    const dx = Math.abs(a.x - lastX);
+    const dy = Math.abs(a.y - lastY);
+    const dz = Math.abs(a.z - lastZ);
+    lastX = a.x; lastY = a.y; lastZ = a.z;
+
+    if (dx + dy + dz > 25) {
+      const now = Date.now();
+      if (now - lastShake > 300) {
+        shakeCount++;
+        lastShake = now;
+        if (shakeCount >= 2) {
+          window.dispatchEvent(new CustomEvent('cat-shake'));
+          shakeCount = 0;
+        }
+      }
+    }
+  });
+})();
+
+// Upside-down detection — cat flips when phone is held upside down
+(function () {
+  const catEl = document.getElementById('pixel-cat');
+  if (!catEl) return;
+  let flipped = false;
+
+  window.addEventListener('deviceorientation', (e) => {
+    const beta = e.beta;
+    if (beta === null) return;
+    const isUpsideDown = Math.abs(beta) > 140;
+    if (isUpsideDown && !flipped) {
+      flipped = true;
+      catEl.style.transition = 'transform 0.4s ease';
+      catEl.style.transform = 'scaleY(-1)';
+      catEl.style.bottom = 'auto';
+      catEl.style.top = '70px';
+    } else if (!isUpsideDown && flipped) {
+      flipped = false;
+      catEl.style.transform = 'scaleY(1)';
+      catEl.style.bottom = '12px';
+      catEl.style.top = 'auto';
+    }
+  });
+})();
+
 // Pixel Black Cat — interactive
 (function () {
   const canvas = document.getElementById('cat-canvas');
@@ -346,6 +399,17 @@ reveals.forEach(el => observer.observe(el));
       }
     }
     lastPetX = px;
+  });
+
+  // shake = wake cat + surprised reaction
+  window.addEventListener('cat-shake', () => {
+    if (state === 'sleep' || state === 'idle') {
+      state = 'pet';
+      idleTimer = 0;
+      petCooldown = 40;
+      lastInteraction = Date.now();
+      spawnHeart();
+    }
   });
 
   // click = drop a blueberry
